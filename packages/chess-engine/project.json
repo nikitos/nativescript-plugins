@@ -1,0 +1,65 @@
+{
+  "name": "chess-engine",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/chess-engine",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/chess-engine",
+        "tsConfig": "packages/chess-engine/tsconfig.json",
+        "packageJson": "packages/chess-engine/package.json",
+        "main": "packages/chess-engine/index.d.ts",
+        "assets": [
+          "packages/chess-engine/*.md",
+          "packages/chess-engine/index.d.ts",
+          "LICENSE",
+          {
+            "glob": "**/*",
+            "input": "packages/chess-engine/platforms/",
+            "output": "./platforms/"
+          }
+        ],
+        "dependsOn": [
+          {
+            "target": "build.all",
+            "projects": "dependencies"
+          }
+        ]
+      }
+    },
+    "build.all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["node tools/scripts/build-finish.ts chess-engine"],
+        "parallel": false
+      },
+      "outputs": ["dist/packages/chess-engine"],
+      "dependsOn": [
+        {
+          "target": "build.all",
+          "projects": "dependencies"
+        },
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ]
+    },
+    "focus": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx g @nativescript/plugin-tools:focus-packages chess-engine"],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/chess-engine/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
