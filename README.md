@@ -5,7 +5,7 @@ npm run setup
 npm start
 ```
 
-- @nikitos
+- [@nikitos/chess-engine](packages/chess-engine/README.md)
 
 # How to use?
 

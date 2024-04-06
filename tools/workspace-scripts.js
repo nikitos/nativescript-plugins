@@ -61,6 +61,13 @@ module.exports = {
     // packages
     // build output is always in dist/packages
     '@nikitos': {
+      // @nikitos/chess-engine
+      'chess-engine': {
+        build: {
+          script: 'nx run chess-engine:build.all',
+          description: '@nikitos/chess-engine: Build',
+        },
+      },
       'build-all': {
         script: 'nx run-many --target=build.all --all',
         description: 'Build all packages',
@@ -71,6 +78,10 @@ module.exports = {
       description: '_____________  Focus (VS Code supported)  _____________',
     },
     focus: {
+      'chess-engine': {
+        script: 'nx run chess-engine:focus',
+        description: 'Focus on @nikitos/chess-engine',
+      },
       reset: {
         script: 'nx g @nikitos/plugin-tools:focus-packages',
         description: 'Reset Focus',
